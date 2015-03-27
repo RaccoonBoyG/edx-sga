@@ -27,23 +27,32 @@ function StaffGradedAssignmentXBlock(runtime, element) {
                 url: uploadUrl,
                 add: function(e, data) {
                     var do_upload = $(content).find(".upload").html('');
+                    var message = interpolate(
+                        gettext("Upload %(filename)s"),
+                        {'filename': data.files[0].name},
+                        true
+                    );
                     $('<button/>')
-                        .text('Upload ' + data.files[0].name)
+                        .text(message)
                         .appendTo(do_upload)
                         .click(function() {
-                            do_upload.text("Uploading...");
+                            do_upload.text(gettext("Uploading..."));
                             data.submit();
                         });
                 },
                 progressall: function(e, data) {
                     var percent = parseInt(data.loaded / data.total * 100, 10);
-                    $(content).find(".upload").text(
-                        "Uploading... " + percent + "%");
+                    var message = interpolate(
+                        gettext("Uploading... %(percent)s%"),
+                        {'percent': percent},
+                        true
+                    );
+                    $(content).find(".upload").text(message);
                 },
                 fail: function(e, data) {
                     /**
-                     * Nginx and other sanely implemented servers return a 
-                     * "413 Request entity too large" status code if an 
+                     * Nginx and other sanely implemented servers return a
+                     * "413 Request entity too large" status code if an
                      * upload exceeds its limit.  See the 'done' handler for
                      * the not sane way that Django handles the same thing.
                      */
@@ -52,11 +61,11 @@ function StaffGradedAssignmentXBlock(runtime, element) {
                          * here, so no good way to inform the user of what the
                          * limit is.
                          */
-                        state.error = "The file you are trying to upload is too large."
+                        state.error = gettext("The file you are trying to upload is too large.");
                     }
                     else {
                         // Suitably vague
-                        state.error = "There was an error uploading your file.";
+                        state.error = gettext("There was an error uploading your file.");
 
                         // Dump some information to the console to help someone
                         // debug.
@@ -66,13 +75,13 @@ function StaffGradedAssignmentXBlock(runtime, element) {
                     }
                     render(state);
                 },
-                done: function(e, data) { 
+                done: function(e, data) {
                     /* When you try to upload a file that exceeds Django's size
                      * limit for file uploads, Django helpfully returns a 200 OK
                      * response with a JSON payload of the form:
-                     * 
+                     *
                      *   {'success': '<error message'}
-                     * 
+                     *
                      * Thanks Obama!
                      */
                     if (data.result.success !== undefined) {
@@ -82,7 +91,7 @@ function StaffGradedAssignmentXBlock(runtime, element) {
                     }
                     else {
                         // The happy path, no errors
-                        render(data.result); 
+                        render(data.result);
                     }
                 }
             });
@@ -119,13 +128,18 @@ function StaffGradedAssignmentXBlock(runtime, element) {
                     url: url,
                     progressall: function(e, data) {
                         var percent = parseInt(data.loaded / data.total * 100, 10);
-                        row.find(".upload").text("Uploading... " + percent + "%");
+                        var message = interpolate(
+                            gettext("Uploading... %(percent)s%"),
+                            {'percent': percent},
+                            true
+                        );
+                        row.find(".upload").text(message);
                     },
-                    done: function(e, data) { 
+                    done: function(e, data) {
                         // Add a time delay so user will notice upload finishing
                         // for small files
                         setTimeout(
-                            function() { renderStaffGrading(data.result); }, 
+                            function() { renderStaffGrading(data.result); },
                             3000)
                     }
                 });
@@ -146,16 +160,21 @@ function StaffGradedAssignmentXBlock(runtime, element) {
                 var score = Number(form.find("#grade-input").val());
                 event.preventDefault();
                 if (isNaN(score)) {
-                    form.find(".error").html("<br/>Grade must be a number.");
-                } 
+                    form.find(".error").html("<br/>"+ gettext("Grade must be a number."));
+                }
                 else if (score != parseInt(score)) {
-                    form.find(".error").html("<br/>Grade must be an integer.");
+                    form.find(".error").html("<br/>"+ gettext("Grade must be an integer."));
                 }
                 else if (score < 0) {
-                    form.find(".error").html("<br/>Grade must be positive.");
+                    form.find(".error").html("<br/>"+ gettext("Grade must be positive."));
                 }
                 else if (score > max_score) {
-                    form.find(".error").html("<br/>Maximum score is " + max_score);
+                    var message = interpolate(
+                        gettext("Maximum score is %(max_score)s."),
+                        {'max_score': max_score},
+                        true
+                    )
+                    form.find(".error").html("<br/>"+message);
                 }
                 else {
                     // No errors
@@ -164,8 +183,8 @@ function StaffGradedAssignmentXBlock(runtime, element) {
                 }
             });
             form.find("#remove-grade").on("click", function() {
-                var url = removeGradeUrl + "?module_id=" + 
-                    row.data("module_id") + "&student_id=" + 
+                var url = removeGradeUrl + "?module_id=" +
+                    row.data("module_id") + "&student_id=" +
                     row.data("student_id");
                 $.get(url).success(renderStaffGrading);
             });
@@ -176,16 +195,16 @@ function StaffGradedAssignmentXBlock(runtime, element) {
                  * the overlay for itself and for the staff grading modal,
                  * so the overlay is no longer present to click on to close
                  * the staff grading modal.  Since leanModal uses a fade out
-                 * time of 200ms to hide the overlay, our work around is to 
+                 * time of 200ms to hide the overlay, our work around is to
                  * wait 225ms and then just "click" the 'Grade Submissions'
-                 * button again.  It would also probably be pretty 
+                 * button again.  It would also probably be pretty
                  * straightforward to submit a patch to leanModal so that it
                  * would work properly with nested modals.
                  *
                  * See: https://github.com/mitodl/edx-sga/issues/13
                  */
                 setTimeout(function() {
-                    $("#grade-submissions-button").click(); 
+                    $("#grade-submissions-button").click();
                 }, 225);
             });
         }
@@ -213,11 +232,11 @@ function StaffGradedAssignmentXBlock(runtime, element) {
         });
     }
 
-    if (require === undefined) { 
-        /** 
+    if (require === undefined) {
+        /**
          * The LMS does not use require.js (although it loads it...) and
          * does not already load jquery.fileupload.  (It looks like it uses
-         * jquery.ajaxfileupload instead.  But our XBlock uses 
+         * jquery.ajaxfileupload instead.  But our XBlock uses
          * jquery.fileupload.
          */
         function loadjs(url) {
