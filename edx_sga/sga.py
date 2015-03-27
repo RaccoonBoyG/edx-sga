@@ -203,8 +203,8 @@ class StaffGradedAssignmentXBlock(XBlock):
         context['location'] = self.location
         context['category'] = type(self).__name__
         context['fields'] = [
-            (name, field.read_from(self))
-            for name, field in self.fields.items()]
+            (field.display_name, field.read_from(self))
+            for field in self.fields.values()]
 
     def student_state(self):
         """
