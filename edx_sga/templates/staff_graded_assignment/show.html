@@ -161,7 +161,7 @@
           <input id="module_id-input" type="hidden" name="module_id"/>
           <input id="submission_id-input" type="hidden" name="submission_id"/>
           <div>{% blocktrans with name_placeholder='<span id="student-name"/>' %}Grade for {{ name_placeholder }}{% endblocktrans %}</div>
-            <div>{% trans 'Grade' %}: <input id="grade-input" name="grade"/>
+              <div>{% trans 'Grade' %}: <input id="grade-input" name="grade" size="3"/>&nbsp;/&nbsp;{{ max_score }}
             <span class="error"></span></div>
           <div>{% trans 'Comment' %}: <textarea id="comment-input" name="comment" rows="4"></textarea></div>
           <div>

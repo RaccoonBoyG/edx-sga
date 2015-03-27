@@ -179,7 +179,8 @@ class StaffGradedAssignmentXBlock(XBlock):
         """
         context = {
             "student_state": json.dumps(self.student_state()),
-            "id": self.location.name.replace('.', '_')
+            "id": self.location.name.replace('.', '_'),
+            "max_score": self.max_score(),
         }
         if self.show_staff_grading_interface():
             context['is_course_staff'] = True
