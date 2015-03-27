@@ -240,6 +240,9 @@ function StaffGradedAssignmentXBlock(runtime, element) {
          * jquery.fileupload.
          */
         function loadjs(url) {
+            var root_url = $("meta[name='path_prefix']").attr('content');
+            if (root_url)
+                url = root_url + url;
             $("<script>")
                 .attr("type", "text/javascript")
                 .attr("src", url)
