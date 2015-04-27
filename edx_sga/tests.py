@@ -11,12 +11,12 @@ from courseware.models import StudentModule
 from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
 from django.core.files.storage import FileSystemStorage
+from django.utils import translation
 from submissions import api as submissions_api
 from submissions.models import StudentItem
 from student.models import anonymous_id_for_user, UserProfile
 from xblock.field_data import DictFieldData
 from opaque_keys.edx.locations import Location, SlashSeparatedCourseKey
-
 
 class DummyResource(object):
 
@@ -293,6 +293,15 @@ class StaffGradedAssignmentXblockTests(unittest.TestCase):
 
         point_positive_int_test()
         weights_positive_float_test()
+
+    def test_decimal_separator(self):
+        block = self.make_one()
+        # use Russian locale having ',' as a decimal separator
+        with translation.override('ru', deactivate=True):
+            block.save_sga(mock.Mock(method="POST", body=json.dumps({
+                'weight': '42,7'
+            })))
+        self.assertEqual(block.weight, 42.7)
 
     def test_upload_download_assignment(self):
         path = pkg_resources.resource_filename(__package__, 'tests.py')

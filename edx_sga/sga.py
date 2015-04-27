@@ -19,6 +19,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.files import File
 from django.core.files.storage import default_storage
 from django.template import Context, Template
+from django.utils.formats import sanitize_separators
 
 from student.models import user_by_anonymous_id
 from submissions import api as submissions_api
@@ -340,6 +341,7 @@ class StaffGradedAssignmentXBlock(XBlock):
         # Check that weight is a float.
         if weight:
             try:
+                weight = sanitize_separators(weight)
                 weight = float(weight)
             except ValueError:
                 raise JsonHandlerError(400, 'Weight must be a decimal number')
