@@ -10,6 +10,7 @@ import mimetypes
 import os
 import pkg_resources
 import pytz
+import urllib
 
 from functools import partial
 
@@ -433,10 +434,17 @@ class StaffGradedAssignmentXBlock(XBlock):
         BLOCK_SIZE = (1 << 10) * 8  # 8kb
         file = default_storage.open(path)
         app_iter = iter(partial(file.read, BLOCK_SIZE), '')
+        try:
+            filename.encode('ascii')
+        except UnicodeEncodeError:
+            filename = urllib.quote(filename.encode('utf-8'))
+            content_disposition = "attachment; filename*=UTF-8''" + filename
+        else:
+            content_disposition = "attachment; filename=" + filename
         return Response(
             app_iter=app_iter,
             content_type=mimetype,
-            content_disposition="attachment; filename=" + filename)
+            content_disposition=content_disposition)
 
     @XBlock.handler
     def get_staff_grading_data(self, request, suffix=''):

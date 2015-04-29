@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import datetime
 import json
 import mock
@@ -6,6 +7,7 @@ import pkg_resources
 import pytz
 import tempfile
 import unittest
+import urllib
 
 from courseware.models import StudentModule
 from django.contrib.auth.models import User
@@ -350,6 +352,20 @@ class StaffGradedAssignmentXblockTests(unittest.TestCase):
         response = block.staff_download(mock.Mock(params={
             'student_id': student['item'].student_id}))
         self.assertEqual(response.body, expected)
+
+    def test_download_nonascii_filename(self):
+        path = pkg_resources.resource_filename(__package__, 'tests.py')
+        expected = open(path, 'rb').read()
+        filename = u'τεστ.txt'
+        upload = mock.Mock(file=DummyUpload(path, filename))
+        block = self.make_one()
+        self.personalize(block, **self.make_student(block, "fred"))
+        block.upload_assignment(mock.Mock(params={'assignment': upload}))
+
+        response = block.download_assignment(None)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.body, expected)
+        self.assertIn(urllib.quote(filename.encode('utf-8')), response.content_disposition)
 
     def test_get_staff_grading_data_not_staff(self):
         self.runtime.user_is_staff = False
