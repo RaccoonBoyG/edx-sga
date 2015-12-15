@@ -10,7 +10,7 @@ import pkg_resources
 import pytz
 import tempfile
 import unittest
-from mock import patch
+from mock import patch, call
 
 from courseware.models import StudentModule
 from django.contrib.auth.models import User
@@ -221,8 +221,10 @@ class StaffGradedAssignmentXblockTests(unittest.TestCase):
         self.assertEqual(student_state['graded'], None)
         fragment.add_css.assert_called_once_with(
             DummyResource("static/css/edx_sga.css"))
-        fragment.add_javascript.assert_called_once_with(
-            DummyResource("static/js/src/edx_sga.js"))
+        fragment.add_javascript.assert_has_calls([
+            call(DummyResource("static/js/src/edx_sga.js")),
+            call(DummyResource("static/js/src/jquery.tablesorter.min.js"))]
+        )
         fragment.initialize_js.assert_called_once_with(
             "StaffGradedAssignmentXBlock")
 
@@ -292,8 +294,10 @@ class StaffGradedAssignmentXblockTests(unittest.TestCase):
                          {u'comment': '', u'score': 10})
         fragment.add_css.assert_called_once_with(
             DummyResource("static/css/edx_sga.css"))
-        fragment.add_javascript.assert_called_once_with(
-            DummyResource("static/js/src/edx_sga.js"))
+        fragment.add_javascript.assert_has_calls([
+            call(DummyResource("static/js/src/edx_sga.js")),
+            call(DummyResource("static/js/src/jquery.tablesorter.min.js"))]
+        )
         fragment.initialize_js.assert_called_once_with(
             "StaffGradedAssignmentXBlock")
 
