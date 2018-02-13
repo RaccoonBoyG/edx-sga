@@ -1,12 +1,17 @@
+"""
+Django command which migrates existing SGA submissions for a course from all
+old SGA implementation before v0.4.0 to newer version that uses the
+'submissions' application.
+"""
 import json
 
-from django.core.management.base import BaseCommand, CommandError
-from courseware.courses import get_course_by_id
-from courseware.models import StudentModule
-from opaque_keys.edx.keys import CourseKey
-from student.models import anonymous_id_for_user
-from submissions import api as submissions_api
-from xmodule.modulestore.django import modulestore
+from django.core.management.base import BaseCommand, CommandError  # lint-amnesty, pylint: disable=import-error
+from courseware.courses import get_course_by_id  # lint-amnesty, pylint: disable=import-error
+from courseware.models import StudentModule  # lint-amnesty, pylint: disable=import-error
+from opaque_keys.edx.keys import CourseKey  # lint-amnesty, pylint: disable=import-error
+from student.models import anonymous_id_for_user  # lint-amnesty, pylint: disable=import-error
+from submissions import api as submissions_api  # lint-amnesty, pylint: disable=import-error
+from xmodule.modulestore.django import modulestore  # lint-amnesty, pylint: disable=import-error
 
 
 class Command(BaseCommand):
@@ -17,7 +22,10 @@ class Command(BaseCommand):
     args = "<course_id>"
     help = __doc__
 
-    def handle(self, *args, **options):
+    def handle(self, *args, **__options):
+        """
+        Migrates existing SGA submissions.
+        """
         if not args:
             raise CommandError('Please specify the course id.')
         if len(args) > 1:
@@ -27,8 +35,10 @@ class Command(BaseCommand):
         course = get_course_by_id(course_key)
 
         student_modules = StudentModule.objects.filter(
-            course_id=course.id).filter(
-            module_state_key__contains='edx_sga')
+            course_id=course.id
+        ).filter(
+            module_state_key__contains='edx_sga'
+        )
 
         blocks = {}
         for student_module in student_modules:

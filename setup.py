@@ -3,6 +3,8 @@
 import os
 from setuptools import setup, find_packages
 
+import edx_sga
+
 
 def package_data(pkg, root_list):
     """Generic function to find package_data for `pkg` under `root`."""
@@ -16,7 +18,7 @@ def package_data(pkg, root_list):
 
 setup(
     name='edx-sga',
-    version='0.5.0',
+    version=edx_sga.__version__,
     description='edx-sga Staff Graded Assignment XBlock',
     license='Affero GNU General Public License v3 (GPLv3)',
     url="https://github.com/mitodl/edx-sga",
@@ -26,10 +28,11 @@ setup(
     include_package_data=True,
     install_requires=[
         'XBlock',
+        'xblock-utils',
     ],
     entry_points={
         'xblock.v1': [
-            'edx_sga = edx_sga:StaffGradedAssignmentXBlock',
+            'edx_sga = edx_sga.sga:StaffGradedAssignmentXBlock',
         ]
     },
     package_data=package_data("edx_sga", ["static", "templates"]),
