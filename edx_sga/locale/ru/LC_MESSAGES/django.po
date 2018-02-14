@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-sga\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-26 18:45+0000\n"
+"POT-Creation-Date: 2018-02-13 18:27+0300\n"
 "PO-Revision-Date: 2015-03-27 01:11+0000\n"
 "Last-Translator: Liubov Fomicheva <liubov@lektorium.tv>\n"
 "Language-Team: Russian <LL@li.org>\n"
@@ -20,25 +20,25 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: sga.py:63
-msgid "Display name"
+#: edx_sga/sga.py:92
+msgid "Display Name"
 msgstr "Отображаемое название"
 
-#: sga.py:64 templates/staff_graded_assignment/show.html:120
+#: edx_sga/sga.py:93 edx_sga/templates/staff_graded_assignment/show.html:148
 msgid "Staff Graded Assignment"
 msgstr "Оценивание персоналом"
 
-#: sga.py:65
+#: edx_sga/sga.py:95
 msgid "This name appears in the horizontal navigation at the top of the page."
 msgstr ""
 "Данное название показывается на горизонтальной ленте навигации в верхней "
 "части страницы."
 
-#: sga.py:70
+#: edx_sga/sga.py:100
 msgid "Problem Weight"
 msgstr "Весовой коэффициент задания"
 
-#: sga.py:71
+#: edx_sga/sga.py:101
 msgid ""
 "Defines the number of points each problem is worth. If the value is not set, "
 "the problem is worth the sum of the option point values."
@@ -46,188 +46,257 @@ msgstr ""
 "Задаёт количество баллов за задание. Если значение не установлено, каждая "
 "задача оценивается как сумма баллов по каждой опции."
 
-#: sga.py:79
+#: edx_sga/sga.py:109
 msgid "Maximum score"
 msgstr "Максимальный балл"
 
-#: sga.py:80
+#: edx_sga/sga.py:110
 msgid "Maximum grade score given to assignment by staff."
 msgstr "Максимальная оценка, которую может выставить сотрудник."
 
-#: sga.py:86
+#: edx_sga/sga.py:116
 msgid "Score assigned by non-instructor staff"
 msgstr "Оценка ассистента"
 
-#: sga.py:87
+#: edx_sga/sga.py:117
 msgid "Score will need to be approved by instructor before being published."
 msgstr "Оценка, которую должен подтвердить преподаватель перед оглашением."
 
-#: sga.py:94 templates/staff_graded_assignment/show.html:16
+#: edx_sga/sga.py:124 edx_sga/templates/staff_graded_assignment/show.html:33
 msgid "Instructor comment"
 msgstr "Комментарий преподавателя"
 
-#: sga.py:97
+#: edx_sga/sga.py:127
 msgid "Feedback given to student by instructor."
 msgstr "Обратная связь от преподавателя к студенту."
 
-#: sga.py:101
+#: edx_sga/sga.py:131
 msgid "Annotated SHA1"
 msgstr "SHA1 файла с комментариями"
 
-#: sga.py:104
+#: edx_sga/sga.py:134
 msgid ""
 "sha1 of the annotated file uploaded by the instructor for this assignment."
-msgstr ""
-"sha1 файла, загруженного преподавателем для данного ответа."
+msgstr "sha1 файла, загруженного преподавателем для данного ответа."
 
-#: sga.py:109
+#: edx_sga/sga.py:139
 msgid "Annotated file name"
 msgstr "Название файла с комментариями"
 
-#: sga.py:112
+#: edx_sga/sga.py:142
 msgid "The name of the annotated file uploaded for this assignment."
 msgstr "Название файла с комментариями, загруженного для данного ответа"
 
-#: sga.py:116
+#: edx_sga/sga.py:146
 msgid "Mime type of annotated file"
 msgstr "MIME-тип файла с комментариями"
 
-#: sga.py:119
+#: edx_sga/sga.py:149
 msgid "The mimetype of the annotated file uploaded for this assignment."
 msgstr "MIME-тип файла с комментариями для данного ответа."
 
-#: sga.py:123
+#: edx_sga/sga.py:153
 msgid "Timestamp"
 msgstr "Время загрузки"
 
-#: sga.py:126
+#: edx_sga/sga.py:156
 msgid "When the annotated file was uploaded"
 msgstr "Время загрузки файла с комментариями"
 
-#: templates/staff_graded_assignment/edit.html:21
-msgid "Settings"
-msgstr "Настройки"
+#: edx_sga/showanswer.py:22
+msgid "Show Answer"
+msgstr "Показать ответ"
 
-#: templates/staff_graded_assignment/show.html:7
-msgid "File uploaded"
-msgstr "Загруженный файл"
+#: edx_sga/showanswer.py:23
+msgid ""
+"Defines when to show the answer to the problem. A default value can be set "
+"in Advanced Settings."
+msgstr ""
+"Определяет, когда отображать ответ на задание.  В расширенных настройках "
+"можно установить значение по умолчанию."
 
-#: templates/staff_graded_assignment/show.html:10
-msgid "No file has been uploaded."
-msgstr "Вы ещё не загрузили свой файл."
+#: edx_sga/showanswer.py:28
+msgid "Always"
+msgstr "Всегда"
 
-#: templates/staff_graded_assignment/show.html:13
-#, python-format
-msgid "Your score is %(score)s / %(max_score)s."
-msgstr "Ваша оценка: %(score)s из %(max_score)s."
+#: edx_sga/showanswer.py:29
+msgid "Answered"
+msgstr "Дан ответ"
 
-#: templates/staff_graded_assignment/show.html:19
-msgid "Annotated file from instructor"
-msgstr "Файл с комментариями преподавателя"
+#: edx_sga/showanswer.py:30
+msgid "Attempted"
+msgstr "Использована попытка"
 
-#: templates/staff_graded_assignment/show.html:24
-msgid "This assignment has not yet been graded."
-msgstr "Задание пока не оценено преподавателем."
+#: edx_sga/showanswer.py:31
+msgid "Closed"
+msgstr "Закрыт"
 
-#: templates/staff_graded_assignment/show.html:29
+#: edx_sga/showanswer.py:32
+msgid "Finished"
+msgstr "Выполнено"
+
+#: edx_sga/showanswer.py:33
+msgid "Correct or Past Due"
+msgstr "Ответ верен или прошёл срок сдачи"
+
+#: edx_sga/showanswer.py:34
+msgid "Past Due"
+msgstr "Прошёл срок сдачи"
+
+#: edx_sga/showanswer.py:35
+msgid "Never"
+msgstr "Никогда"
+
+#: edx_sga/showanswer.py:39
+msgid "Solution to the problem to show to the user"
+msgstr "Решение задачи, показываемое пользователю"
+
+#: edx_sga/showanswer.py:40
+msgid "Solution"
+msgstr "Решение"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:15
 msgid "Upload a different file"
 msgstr "Загрузить другой файл"
 
-#: templates/staff_graded_assignment/show.html:31
+#: edx_sga/templates/staff_graded_assignment/show.html:17
 msgid "Upload your assignment"
 msgstr "Загрузите свой ответ на задание"
 
-#: templates/staff_graded_assignment/show.html:35
-msgid "Select a file"
-msgstr "Выбрать файл"
+#: edx_sga/templates/staff_graded_assignment/show.html:26
+msgid "File uploaded"
+msgstr "Загруженный файл"
 
-#: templates/staff_graded_assignment/show.html:51
-msgid "Username"
-msgstr "Имя пользователя"
+#: edx_sga/templates/staff_graded_assignment/show.html:31
+msgid "Your score is <%%= graded.score %%> / <%%= max_score %%>"
+msgstr "Ваша оценка:  <%%= graded.score %%> / <%%= max_score %%>"
 
-#: templates/staff_graded_assignment/show.html:52
-msgid "Name"
-msgstr "Полное имя"
+#: edx_sga/templates/staff_graded_assignment/show.html:36
+msgid "Annotated file from instructor"
+msgstr "Файл с комментариями преподавателя"
 
-#: templates/staff_graded_assignment/show.html:53
-msgid "Filename"
-msgstr "Имя файла"
+#: edx_sga/templates/staff_graded_assignment/show.html:40
+msgid "This assignment has not yet been graded."
+msgstr "Задание пока не оценено преподавателем."
 
-#: templates/staff_graded_assignment/show.html:54
-msgid "Uploaded"
-msgstr "Загружен"
-
-#: templates/staff_graded_assignment/show.html:55
-#: templates/staff_graded_assignment/show.html:164
-msgid "Grade"
-msgstr "Оценка"
-
-#: templates/staff_graded_assignment/show.html:56
-msgid "Instructor's comments"
-msgstr "Комментарии преподавателя"
-
-#: templates/staff_graded_assignment/show.html:57
-msgid "Annotated"
-msgstr "Файл с комментариями"
-
-#: templates/staff_graded_assignment/show.html:77
-msgid "Awaiting instructor approval"
-msgstr "В ожидании утверждения преподавателем"
-
-#: templates/staff_graded_assignment/show.html:93
-msgid "Approve grade"
-msgstr "Утвердить оценку"
-
-#: templates/staff_graded_assignment/show.html:95
-msgid "Enter grade"
-msgstr "Ввести оценку"
-
-#: templates/staff_graded_assignment/show.html:103
-msgid "Upload annotated file"
-msgstr "Загрузить файл с комментариями"
-
-#: templates/staff_graded_assignment/show.html:113
-msgid "Grade Submissions"
-msgstr "Оценить работы"
-
-#: templates/staff_graded_assignment/show.html:115
-msgid "Staff Debug Info"
-msgstr "Отладочная информация"
-
-#: templates/staff_graded_assignment/show.html:123
-msgid "Loading..."
-msgstr "Загрузка..."
-
-#: templates/staff_graded_assignment/show.html:131
-msgid "Staff Debug"
-msgstr "Отладка"
-
-#: templates/staff_graded_assignment/show.html:137
-#: templates/staff_graded_assignment/show.html:138
-msgid "Module Fields"
-msgstr "Поля модуля"
-
-#: templates/staff_graded_assignment/show.html:156
-msgid "Enter Grade"
-msgstr "Введите оценку"
-
-#: templates/staff_graded_assignment/show.html:163
-#, python-format
-msgid "Grade for %(name_placeholder)s"
-msgstr "Оценка студента %(name_placeholder)s"
-
-#: templates/staff_graded_assignment/show.html:166
-msgid "Comment"
-msgstr "Комментарий"
-
-#: templates/staff_graded_assignment/show.html:168
+#: edx_sga/templates/staff_graded_assignment/show.html:45
+#: edx_sga/templates/staff_graded_assignment/show.html:200
 msgid "Submit"
 msgstr "Отправить"
 
-#: templates/staff_graded_assignment/show.html:170
+#: edx_sga/templates/staff_graded_assignment/show.html:68
+msgid "Username"
+msgstr "Имя пользователя"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:69
+msgid "Name"
+msgstr "Полное имя"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:70
+msgid "Filename"
+msgstr "Имя файла"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:71
+msgid "Uploaded"
+msgstr "Загружен"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:72
+msgid "Submitted"
+msgstr "Загружено"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:73
+msgid "Grade"
+msgstr "Оценка"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:74
+msgid "Instructor's comments"
+msgstr "Комментарии преподавателя"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:75
+msgid "Annotated"
+msgstr "Файл с комментариями"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:76
+msgid "Actions"
+msgstr "Действия"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:95
+msgid "Yes"
+msgstr "Да"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:97
+msgid "No"
+msgstr "Нет"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:105
+msgid "Awaiting instructor approval"
+msgstr "В ожидании утверждения преподавателем"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:121
+msgid "Approve grade"
+msgstr "Утвердить оценку"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:123
+msgid "Enter grade"
+msgstr "Ввести оценку"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:130
+msgid "Upload annotated file"
+msgstr "Загрузить файл с комментариями"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:143
+msgid "Grade Submissions"
+msgstr "Оценить работы"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:151
+msgid "Download All Submissions"
+msgstr "Скачать все работы"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:155
+msgid "Loading..."
+msgstr "Загрузка..."
+
+#: edx_sga/templates/staff_graded_assignment/show.html:163
+msgid "Staff Debug"
+msgstr "Отладка"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:166
+msgid "is_released"
+msgstr "выпущен"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:167
+msgid "location"
+msgstr "местонахождение"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:169
+#: edx_sga/templates/staff_graded_assignment/show.html:170
+msgid "Module Fields"
+msgstr "Поля модуля"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:180
+msgid "category"
+msgstr "категория"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:188
+msgid "Enter Grade"
+msgstr "Введите оценку"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:195
+msgid "Grade for %(student_name)s"
+msgstr "Оценка слушателя %(student_name)s"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:196
+msgid "Grade:"
+msgstr "Оценка:"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:198
+msgid "Comment:"
+msgstr "Комментарий:"
+
+#: edx_sga/templates/staff_graded_assignment/show.html:202
 msgid "Cancel"
 msgstr "Отменить"
 
-#: templates/staff_graded_assignment/show.html:173
+#: edx_sga/templates/staff_graded_assignment/show.html:205
 msgid "Remove grade"
 msgstr "Удалить оценку"

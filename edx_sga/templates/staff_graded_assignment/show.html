@@ -193,7 +193,7 @@
           <input id="module_id-input" type="hidden" name="module_id"/>
           <input id="submission_id-input" type="hidden" name="submission_id"/>
           <div>{% blocktrans with student_name="<span id='student-name'/>" %}Grade for {{student_name}}{% endblocktrans %}</div>
-          <div>{% trans "Grade:" %} <input id="grade-input" name="grade"/>
+          <div>{% trans "Grade:" %} <input id="grade-input" name="grade"/>/{{ max_score }}
             <span class="error"></span></div>
           <div>{% trans "Comment:" %} <textarea id="comment-input" name="comment" rows="4"></textarea></div>
           <div>

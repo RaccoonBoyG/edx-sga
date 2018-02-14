@@ -54,4 +54,4 @@ msgstr "Оценка должна быть положительной."
 
 #: static/js/src/edx_sga.js:173
 msgid "Maximum score is %(max_score)s."
-msgstr "Максимальная оценка - %(max_score)s."
+msgstr "Максимальная оценка — %(max_score)s."
