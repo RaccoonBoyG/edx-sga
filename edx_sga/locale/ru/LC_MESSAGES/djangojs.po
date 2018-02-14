@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: edx-sga\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-27 13:52+0000\n"
+"POT-Creation-Date: 2018-02-14 20:59+0300\n"
 "PO-Revision-Date: 2015-03-27 10:54:11+0000\n"
 "Last-Translator: Liubov Fomicheva <liubov@lektorium.tv>\n"
 "Language-Team: Russian <LL@li.org>\n"
@@ -20,38 +20,68 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
 
-#: static/js/src/edx_sga.js:31
-msgid "Upload %(filename)s"
-msgstr "Загрузить %(filename)s"
+#: edx_sga/static/js/src/edx_sga.js:24
+msgid "Started preparing student submissions zip file. This may take a while."
+msgstr "Собирается zip-архив с работами слушателей. Это может занять некоторое время."
 
-#: static/js/src/edx_sga.js:39
+#: edx_sga/static/js/src/edx_sga.js:43
+msgid "Submission failed. Please contact your course instructor."
+msgstr "Ошибка при отправке файла. Пожалуйста, свяжитесь с командой курса."
+
+#: edx_sga/static/js/src/edx_sga.js:55
 msgid "Uploading..."
 msgstr "Файл загружается..."
 
-#: static/js/src/edx_sga.js:46 static/js/src/edx_sga.js.c:132
-msgid "Uploading... %(percent)s%"
-msgstr "Файл загружается... %(percent)s%"
-
-#: static/js/src/edx_sga.js:64
+#: edx_sga/static/js/src/edx_sga.js:62 edx_sga/static/js/src/edx_sga.js:90
 msgid "The file you are trying to upload is too large."
 msgstr "Файл, который вы пытаетесь загрузить, слишком велик."
 
-#: static/js/src/edx_sga.js:68
+#: edx_sga/static/js/src/edx_sga.js:72
+msgid "Uploading... %(percent)s%"
+msgstr "Файл загружается... %(percent)s%"
+
+#: edx_sga/static/js/src/edx_sga.js:93
 msgid "There was an error uploading your file."
 msgstr "Ошибка при загрузке файла."
 
-#: static/js/src/edx_sga.js:163
+#: edx_sga/static/js/src/edx_sga.js:165
+msgid "Uploading... %(percent)s %"
+msgstr "Файл загружается... %(percent)s %"
+
+#: edx_sga/static/js/src/edx_sga.js:199
+msgid "yes"
+msgstr "да"
+
+#: edx_sga/static/js/src/edx_sga.js:245
 msgid "Grade must be a number."
 msgstr "Оценка должна быть числом."
 
-#: static/js/src/edx_sga.js:166
+#: edx_sga/static/js/src/edx_sga.js:247
 msgid "Grade must be an integer."
 msgstr "Оценка должна быть целым числом."
 
-#: static/js/src/edx_sga.js:169
+#: edx_sga/static/js/src/edx_sga.js:249
 msgid "Grade must be positive."
 msgstr "Оценка должна быть положительной."
 
-#: static/js/src/edx_sga.js:173
-msgid "Maximum score is %(max_score)s."
-msgstr "Максимальная оценка — %(max_score)s."
+#: edx_sga/static/js/src/edx_sga.js:251
+msgid "Maximum score is %(max_score)s"
+msgstr "Максимальная оценка — %(max_score)s"
+
+#: edx_sga/static/js/src/edx_sga.js:267
+msgid "No grade to remove."
+msgstr "Нет оценки для удаления."
+
+#: edx_sga/static/js/src/edx_sga.js:354
+msgid "An error occurred while trying to prepare your submission file"
+msgstr "Ошибка при сборке файла с работами слушателей"
+
+#: edx_sga/static/js/src/edx_sga.js:368
+msgid "Student submission file ready for download"
+msgstr "Файл с работами слушателей готов к скачиванию"
+
+#: edx_sga/static/js/src/edx_sga.js:376
+msgid ""
+"An error occurred while trying to get the status of your submission file."
+msgstr ""
+"Ошибка при получении статуса сборки файла с работами слушателей."
