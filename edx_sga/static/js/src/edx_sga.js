@@ -241,7 +241,7 @@ function StaffGradedAssignmentXBlock(runtime, element) {
                 var max_score = row.parents('#grade-info').data('max_score');
                 var score = Number(form.find('#grade-input').val());
                 event.preventDefault();
-                if (!score) {
+                if (!Number.isInteger(score)) {
                     gradeFormError('<br/>'+gettext('Grade must be a number.'));
                 } else if (score !== parseInt(score)) {
                     gradeFormError('<br/>'+gettext('Grade must be an integer.'));
