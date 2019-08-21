@@ -8,12 +8,16 @@ import shutil
 import six
 
 from django.conf import settings
-from django.core.files.storage import default_storage  # lint-amnesty, pylint: disable=import-error
-from django.core.files.base import ContentFile  # lint-amnesty, pylint: disable=import-error
+# lint-amnesty, pylint: disable=import-error
+from django.core.files.storage import default_storage
+# lint-amnesty, pylint: disable=import-error
+from django.core.files.base import ContentFile
 
 from lms import CELERY_APP  # pylint: disable=no-name-in-module, import-error
-from submissions import api as submissions_api  # lint-amnesty, pylint: disable=import-error
-from student.models import user_by_anonymous_id  # lint-amnesty, pylint: disable=import-error
+# lint-amnesty, pylint: disable=import-error
+from submissions import api as submissions_api
+# lint-amnesty, pylint: disable=import-error
+from student.models import user_by_anonymous_id
 from opaque_keys.edx.locator import BlockUsageLocator
 
 from edx_sga.constants import BLOCK_SIZE, ITEM_TYPE
@@ -21,7 +25,8 @@ from edx_sga.constants import BLOCK_SIZE, ITEM_TYPE
 
 log = logging.getLogger(__name__)
 DATA_DIR = getattr(default_storage, "location", "/var/edxapp/uploads")
-DEFAULT_FILE_STORAGE = getattr(settings, "DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage")
+DEFAULT_FILE_STORAGE = getattr(
+    settings, "DEFAULT_FILE_STORAGE", "django.core.files.storage.FileSystemStorage")
 
 
 def is_s3_default_storage():
@@ -66,6 +71,7 @@ def _collect_student_submissions(block_id, course_id, locator, destination_path)
             )
 
             destination_file_path = _get_destination_file_path(
+                student.email,
                 student.username,
                 answer['sha1'],
                 ext,
@@ -75,22 +81,26 @@ def _collect_student_submissions(block_id, course_id, locator, destination_path)
                 default_storage.save(destination_file_path, ContentFile(b''))
                 with default_storage.open(source_file_path, 'rb') as source_file_pointer, \
                         default_storage.open(destination_file_path, 'wb') as dest_file_pointer:
-                    shutil.copyfileobj(source_file_pointer, dest_file_pointer, length=BLOCK_SIZE)
+                    shutil.copyfileobj(source_file_pointer,
+                                       dest_file_pointer, length=BLOCK_SIZE)
             except IOError:
-                log.exception("Unable to download submission of student=%s", student.username)
+                log.exception(
+                    "Unable to download submission of student=%s", student.username)
 
 
-def _get_destination_file_path(student_name, sha1, ext, destination_path):
+def _get_destination_file_path(student_email, student_name, sha1, ext, destination_path):
     """
     return destination file path
 
     Args:
+        student_email (str): student email of student
         student_name (str): user name of student
         sha1 (str): SHA code for file
         ext (str): extension of file
         destination_path (str): path (including name) of folder/file which we want to compress.
     """
-    destination_file_name = six.u("{student_name}_{sha1}{ext}").format(
+    destination_file_name = six.u("{student_email}_{student_name}_{sha1}{ext}").format(
+        student_email=student_email,
         student_name=student_name,
         sha1=sha1,
         ext=ext
@@ -112,12 +122,14 @@ def _compress_folder(destination_path, zip_file_path):
         zip_file_bytes = BytesIO()
         with zipfile.ZipFile(zip_file_bytes, 'w') as zip_pointer:
             for filename in default_storage.listdir(destination_path)[1]:
-                destination_file_path = os.path.join(destination_path, filename)
+                destination_file_path = os.path.join(
+                    destination_path, filename)
                 with default_storage.open(destination_file_path, 'rb') as destination_file:
                     zip_pointer.writestr(filename, destination_file.read())
         zip_file_bytes.seek(0)
         with default_storage.open(zip_file_path, 'wb') as zip_file_pointer:
-            shutil.copyfileobj(zip_file_bytes, zip_file_pointer, length=BLOCK_SIZE)
+            shutil.copyfileobj(
+                zip_file_bytes, zip_file_pointer, length=BLOCK_SIZE)
     else:
         folder_path = os.path.join(DATA_DIR, destination_path)
         shutil.make_archive(
@@ -193,10 +205,13 @@ def zip_student_submissions(course_id, block_id, locator_unicode, username):
         username (unicode): staff user name
     """
     locator = BlockUsageLocator.from_string(locator_unicode)
-    submissions_dir_name = _get_submissions_base_name(username, block_id, course_id)
-    relative_destination_path = _get_submissions_dir_path(submissions_dir_name, locator)
+    submissions_dir_name = _get_submissions_base_name(
+        username, block_id, course_id)
+    relative_destination_path = _get_submissions_dir_path(
+        submissions_dir_name, locator)
     _remove_existing_artifacts(relative_destination_path)
-    _collect_student_submissions(block_id, course_id, locator, relative_destination_path)
+    _collect_student_submissions(
+        block_id, course_id, locator, relative_destination_path)
     _compress_folder(
         relative_destination_path,
         get_zip_file_path(username, course_id, block_id, locator)
@@ -212,7 +227,8 @@ def get_zip_file_name(username, block_id, course_id):
         block_id (unicode): edx block id
         username (unicode): staff user name
     """
-    submissions_dir_name = _get_submissions_base_name(username, block_id, course_id)
+    submissions_dir_name = _get_submissions_base_name(
+        username, block_id, course_id)
     return "{}.zip".format(submissions_dir_name)
 
 
