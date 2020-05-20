@@ -785,9 +785,12 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
                 else:
                     needs_approval = False
                 instructor = self.is_instructor()
-                log.info("!!!!!!!!!!!!!!!!!!!")
+                log.info("instructor")
                 log.info(instructor)
+                log.info("needs_approval")
                 log.info(needs_approval)
+                log.info("approved")
+                log.info(approved)
                 yield {
                     'module_id': student_module.id,
                     'student_id': student.student_id,
