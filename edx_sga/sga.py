@@ -791,6 +791,9 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
                 log.info(needs_approval)
                 log.info("approved")
                 log.info(approved)
+                instructor = True
+                needs_approval = False
+                approved = True
                 yield {
                     'module_id': student_module.id,
                     'student_id': student.student_id,
