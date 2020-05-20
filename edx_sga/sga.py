@@ -778,8 +778,6 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
                 student_module = self.get_or_create_student_module(user)
                 state = json.loads(student_module.state)
                 score = self.get_score(student.student_id)
-                log.info("!!!!!!!!!!!!!!!!!!!")
-                log.info(score)
                 approved = score is not None
                 if score is None:
                     score = state.get('staff_score')
@@ -787,6 +785,9 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
                 else:
                     needs_approval = False
                 instructor = self.is_instructor()
+                log.info("!!!!!!!!!!!!!!!!!!!")
+                log.info(instructor)
+                log.info(needs_approval)
                 yield {
                     'module_id': student_module.id,
                     'student_id': student.student_id,
