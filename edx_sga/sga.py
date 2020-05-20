@@ -403,7 +403,7 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
                 )
             )
 
-        if self.is_course_staff():
+        if self.is_course_staff() or self.is_instructor():
             uuid = request.params['submission_id']
             submissions_api.set_score(uuid, score, self.max_score())
         else:
@@ -784,7 +784,7 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
                     needs_approval = score is not None
                 else:
                     needs_approval = False
-                # instructor = self.is_instructor()
+                instructor = self.is_instructor()
                 course_staff = self.is_course_staff()
                 # log.info("needs_approval")
                 # log.info(needs_approval)
@@ -804,8 +804,8 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
                     ),
                     'score': score,
                     'approved': approved,
-                    'needs_approval': course_staff and needs_approval,
-                    'may_grade': course_staff or not approved,
+                    'needs_approval': (course_staff or instructor) and needs_approval,
+                    'may_grade': (course_staff or instructor) or not approved,
                     'annotated': force_text(state.get("annotated_filename", '')),
                     'comment': force_text(state.get("comment", '')),
                     'finalized': is_finalized_submission(submission_data=submission)
