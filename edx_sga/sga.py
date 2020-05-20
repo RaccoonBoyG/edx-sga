@@ -403,7 +403,7 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
                 )
             )
 
-        if self.is_instructor():
+        if self.is_course_staff():
             uuid = request.params['submission_id']
             submissions_api.set_score(uuid, score, self.max_score())
         else:
@@ -791,7 +791,7 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
                 log.info(needs_approval)
                 log.info("approved")
                 log.info(approved)
-                instructor = True
+                instructor = self.is_course_staff()
                 needs_approval = False
                 approved = True
                 yield {
