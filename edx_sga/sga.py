@@ -784,16 +784,14 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
                     needs_approval = score is not None
                 else:
                     needs_approval = False
-                instructor = self.is_instructor()
-                log.info("instructor")
-                log.info(instructor)
-                log.info("needs_approval")
-                log.info(needs_approval)
-                log.info("approved")
-                log.info(approved)
-                instructor = self.is_course_staff()
-                needs_approval = False
-                approved = True
+                # instructor = self.is_instructor()
+                course_staff = self.is_course_staff()
+                # log.info("needs_approval")
+                # log.info(needs_approval)
+                # log.info("approved")
+                # log.info(approved)
+                # needs_approval = False
+                # approved = True
                 yield {
                     'module_id': student_module.id,
                     'student_id': student.student_id,
@@ -806,8 +804,8 @@ class StaffGradedAssignmentXBlock(StudioEditableXBlockMixin, ShowAnswerXBlockMix
                     ),
                     'score': score,
                     'approved': approved,
-                    'needs_approval': instructor and needs_approval,
-                    'may_grade': instructor or not approved,
+                    'needs_approval': course_staff and needs_approval,
+                    'may_grade': course_staff or not approved,
                     'annotated': force_text(state.get("annotated_filename", '')),
                     'comment': force_text(state.get("comment", '')),
                     'finalized': is_finalized_submission(submission_data=submission)
